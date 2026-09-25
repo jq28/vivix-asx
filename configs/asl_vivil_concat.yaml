@@ -1,0 +1,38 @@
+# TODO(unspecified in paper) marks values the paper does not state.
+attention: L
+attention_kwargs:                 # keyed by kind, so switching `attention` needs no other edit
+  L: {k: 64, one_kv_head: true}
+  N: {num_landmarks: 64}
+  P: {nb_features: 256, eps: 1.0e-6, redraw_interval: 1000}
+video:
+  frames: 30                      # Sec. 3.1
+  image_size: 224                 # TODO(unspecified in paper)
+  patch_size: 16                  # TODO(unspecified in paper)
+  tubelet_frames: 2               # TODO(unspecified in paper)
+  dim: 192                        # TODO(unspecified in paper)
+  heads: 3                        # TODO(unspecified in paper)
+  dim_head: 64                    # TODO(unspecified in paper)
+  mlp_dim: 512                    # Table 4
+  spatial_depth: 2                # TODO(unspecified in paper)
+  temporal_depth: 2               # TODO(unspecified in paper)
+  dropout: 0.1                    # Sec. 4.2
+audio:
+  n_mels: 128                     # TODO(unspecified in paper)
+  n_frames: 512                   # TODO(unspecified in paper)
+  patch_size: 16                  # AST default
+  stride: 10                      # AST default
+  dim: 192                        # TODO(unspecified in paper)
+  heads: 3                        # TODO(unspecified in paper)
+  dim_head: 64                    # TODO(unspecified in paper)
+  mlp_dim: 512                    # TODO(unspecified in paper)
+  depth: 4                        # TODO(unspecified in paper)
+  dropout: 0.1                    # Sec. 4.2
+fusion:
+  kind: concat                  # Table 3 baseline
+  unified_dim: 64                 # TODO(unspecified in paper)
+num_outputs: 1                    # Eq. 13; train.py --target picks arousal or valence
+train:
+  lr_video: 1.0e-3                # Sec. 4.2
+  lr_audio: 1.0e-4                # Sec. 4.2
+  lr_fusion: 1.0e-3               # TODO(unspecified in paper)
+  batch_size: 4                   # TODO(unspecified in paper)

@@ -1,0 +1,6 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.5,<3
+torchaudio>=2.5,<3
+numpy
+PyYAML>=6
+pytest>=8
