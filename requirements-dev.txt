@@ -1,0 +1,9 @@
+# Upstream implementations used only by tests/test_reference.py (fidelity test).
+# vit-pytorch pulls in torchvision, whose version must match the installed torch minor
+# (pip resolves that on a fresh install; on an existing venv pin torchvision by hand).
+-r requirements.txt
+linformer
+nystrom-attention
+performer-pytorch
+vit-pytorch
+timm

@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vivix-asx"
+version = "0.1.0"
+description = "ViViX and ASX: video and audio transformers with swappable linear attention, in PyTorch"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = ["torch>=2.5,<3", "torchaudio>=2.5,<3", "pyyaml>=6"]
+
+[project.urls]
+Repository = "https://github.com/jq28/vivix-asx"
+
+[tool.setuptools]
+packages = ["vivix_asx"]

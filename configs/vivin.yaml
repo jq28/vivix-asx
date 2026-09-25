@@ -1,0 +1,24 @@
+# TODO(unspecified in paper) marks values the paper does not state.
+attention: N
+attention_kwargs:                 # keyed by kind, so switching `attention` needs no other edit
+  L: {k: 128}                                      # original code; kept on every stream
+  N: {num_landmarks: 64}                             # original code
+  P: {dim_head: 32, nb_features: 110, eps: 1.0e-6, redraw_interval: 1000}   # original code: dim_head 32; 110 = int(32 ln 32), the reference default
+video:
+  frames: 30                      # Sec. 3.1
+  image_size: 224                 # original code
+  patch_size: 8                   # original code
+  tubelet_frames: 2               # original code
+  dim: 128                        # original code
+  heads: 2                        # original code
+  dim_head: 64                    # TODO(unspecified in paper)
+  mlp_dim: 512                    # Table 4
+  spatial_depth: 1                # original code: one layer per stream in the linear models (Table 1 counts)
+  temporal_depth: 1               # original code: one layer per stream in the linear models (Table 1 counts)
+  dropout: 0.1                    # Sec. 4.2
+num_outputs: 1                    # Eq. 13; train.py --target picks arousal or valence
+train:
+  lr_video: 1.0e-3                # Sec. 4.2
+  lr_audio: 1.0e-4                # Sec. 4.2
+  lr_fusion: 1.0e-3               # TODO(unspecified in paper)
+  batch_size: 4                   # TODO(unspecified in paper)

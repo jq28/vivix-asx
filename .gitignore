@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+*.pt
+*.pth
+*.npy
+*.ckpt
+.pytest_cache/
+benchmarks/results/
+paper/*.pdf
+paper/paper.txt
+paper/refs/
+NOTES.md
+build/
+*.egg-info/
+dist/

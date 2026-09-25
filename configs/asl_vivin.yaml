@@ -1,0 +1,44 @@
+# TODO(unspecified in paper) marks values the paper does not state.
+attention: L                      # audio encoder and fusion
+attention_kwargs:                 # keyed by kind, so switching `attention` needs no other edit
+  L: {k: 128}                                      # original code; kept on every stream
+  N: {num_landmarks: 64}                             # original code
+  P: {dim_head: 32, nb_features: 110, eps: 1.0e-6, redraw_interval: 1000}   # original code: dim_head 32; 110 = int(32 ln 32), the reference default
+video:
+  attention: N                    # a section may override the top-level kind
+  frames: 30                      # Sec. 3.1
+  image_size: 224                 # original code
+  patch_size: 8                   # original code
+  tubelet_frames: 2               # original code
+  dim: 128                        # original code
+  heads: 2                        # original code
+  dim_head: 64                    # TODO(unspecified in paper)
+  mlp_dim: 512                    # Table 4
+  spatial_depth: 1                # original code: one layer per stream in the linear models (Table 1 counts)
+  temporal_depth: 1               # original code: one layer per stream in the linear models (Table 1 counts)
+  dropout: 0.1                    # Sec. 4.2
+audio:
+  attention_kwargs:               # the audio models' own attention settings, keyed by kind (Table 1 counts)
+    T: {qkv_bias: true}                                # the DeiT block projects with a bias
+    L: {k: 128, share_kv: true, heads: 2}              # original code: k 128; one E and one W^K serve keys and values
+    N: {num_landmarks: 64, heads: 2}                   # original code: 64 landmarks
+    P: {heads: 1, dim_head: 32, nb_features: 110, eps: 1.0e-6, redraw_interval: 1000}   # one 32-wide head; 110 = int(32 ln 32)
+  n_mels: 128                     # original code: ASTModel input_fdim
+  n_frames: 1024                  # original code: ASTModel input_tdim
+  patch_size: 16                  # AST default
+  stride: 10                      # original code: fstride, tstride
+  dim: 192                        # original code: model_size tiny224 (DeiT-tiny)
+  heads: 3                        # original code: tiny224
+  dim_head: 64                    # tiny224
+  mlp_dim: 768                    # original code: tiny224 (mlp_ratio 4)
+  depth: 2                        # two of the twelve tiny224 blocks kept (Table 1 counts)
+  dropout: 0.1                    # Sec. 4.2
+fusion:
+  kind: learnable_concat        # Sec. 3.3, Eq. 11-13
+  unified_dim: 64                 # TODO(unspecified in paper)
+num_outputs: 1                    # Eq. 13; train.py --target picks arousal or valence
+train:
+  lr_video: 1.0e-3                # Sec. 4.2
+  lr_audio: 1.0e-4                # Sec. 4.2
+  lr_fusion: 1.0e-3               # TODO(unspecified in paper)
+  batch_size: 4                   # TODO(unspecified in paper)
